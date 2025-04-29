@@ -1,5 +1,8 @@
 from django.contrib import admin
+from django.contrib.admin import AdminSite
 from django.contrib.auth.admin import UserAdmin
+
+from .forms import EmailAdminAuthenticationForm
 from .models import Account, UserProfile
 from django.utils.html import format_html
 
@@ -20,6 +23,15 @@ class UserProfileAdmin(admin.ModelAdmin):
         return format_html('<img src="{}" width="30" style="border-radius:50%;">'.format(object.profile_picture.url))
     thumbnail.short_description = 'Profile Picture'
     list_display = ('thumbnail', 'user', 'city', 'state', 'country')
+class MyAdminSite(AdminSite):
+    login_form = EmailAdminAuthenticationForm
+    login_template = 'admin/login.html'  # optional if you want to customize login page
+    site_header = 'My Admin'
+    site_title = 'My Admin Portal'
 
+admin_site = MyAdminSite(name='myadmin')
+
+# Register your model with the custom site
+admin_site.register(Account)
 admin.site.register(Account, AccountAdmin)
 admin.site.register(UserProfile, UserProfileAdmin)
