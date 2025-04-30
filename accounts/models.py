@@ -82,6 +82,7 @@ class UserProfile(models.Model):
         default='userprofile/default.jpg',
         blank=True
     )
+
     city = models.CharField(blank=True, max_length=20)
     state = models.CharField(blank=True, max_length=20)
     country = models.CharField(blank=True, max_length=20)
