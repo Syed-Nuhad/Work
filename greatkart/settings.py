@@ -107,14 +107,13 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
-
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 from django.contrib.messages import constants as messages
 MESSAGE_TAGS = {messages.ERROR: 'danger'}
 
 # Email settings (fake values for testing)
 EMAIL_HOST_USER = 'nuhad7july02@gmail.com'
-EMAIL_HOST_PASSWORD = 'duva valh ttda ffye'
+EMAIL_HOST_PASSWORD = os.getenv("PK")
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
