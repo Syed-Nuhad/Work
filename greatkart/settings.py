@@ -113,7 +113,7 @@ MESSAGE_TAGS = {messages.ERROR: 'danger'}
 
 # Email settings (fake values for testing)
 EMAIL_HOST_USER = 'nuhad7july02@gmail.com'
-EMAIL_HOST_PASSWORD = os.getenv("PK")
+EMAIL_HOST_PASSWORD = os.getenv("PASS_KEY")
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
