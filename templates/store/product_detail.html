@@ -159,11 +159,11 @@
 						<div class="text">
 							<span class="date text-muted float-md-right">{{review.updated_at}} </span>
 							<h6 class="mb-1">{{review.user.full_name}} </h6>
-                            {% if userprofile and userprofile.profile_picture.name %}
-                                <img src="{{ userprofile.profile_picture.url }}" alt="User Profile Picture" width="50" height="50" style="border-radius:50%;">
-                            {% else %}
-                                <img src="{% static 'images/default.jpg' %}" alt="Default Profile Picture" width="50" height="50" style="border-radius:50%;">
-                            {% endif %}
+                        {% if userprofile and userprofile.profile_picture %}
+                            <img src="{{ userprofile.profile_picture.url }}" alt="User Profile Picssdture" width="50" height="50" style="border-radius:50%;">
+                        {% else %}
+                            <img src="{% static 'images/default.jpg' %}" alt="Default Profile Picture" width="50" height="50" style="border-radius:50%;">
+                        {% endif %}
 							<div class="rating-star">
 								<span>
 									<i class="fa fa-star{% if review.rating == 0.5 %}-half-o{% elif review.rating < 1 %}-o {% endif %}" aria-hidden="true"></i>

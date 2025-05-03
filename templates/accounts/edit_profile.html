@@ -3,7 +3,7 @@
 
 {% block content %}
 
-<section class="section-conten padding-y bg">
+<section class="section-content padding-y bg">
 
 {% include 'includes/alerts.html' %}
 <div class="container">
@@ -18,12 +18,12 @@
 		<div class="card-body">
 			<div class="text-right">
 
-                {% if userprofile and userprofile.profile_picture.name %}
+                {% if userprofile.profile_picture and userprofile.profile_picture.name != 'profile_pictures/default.jpg' %}
                     <img src="{{ userprofile.profile_picture.url }}" alt="User Profile Picture" width="50" height="50" style="border-radius:50%;">
                 {% else %}
                     <img src="{% static 'images/default.jpg' %}" alt="Default Profile Picture" width="50" height="50" style="border-radius:50%;">
                 {% endif %}
-{#
+
 
             </div>
 			<div class="row">

@@ -31,7 +31,7 @@
 			<div class="col-md-6">
 				<div class="card" style="text-align:center;">
 					<div class="card-body">
-                        {% if userprofile and userprofile.profile_picture.name %}
+                        {% if userprofile.profile_picture and userprofile.profile_picture.name != 'profile_pictures/default.jpg' %}
                             <img src="{{ userprofile.profile_picture.url }}" alt="User Profile Picture" width="50" height="50" style="border-radius:50%;">
                         {% else %}
                             <img src="{% static 'images/default.jpg' %}" alt="Default Profile Picture" width="50" height="50" style="border-radius:50%;">

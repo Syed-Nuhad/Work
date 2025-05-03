@@ -1,4 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
+
+from accounts.models import UserProfile
 from .models import Product, ReviewRating, ProductGallery
 from category.models import Category
 from carts.models import CartItem
@@ -47,6 +49,7 @@ def product_detail(request, category_slug, product_slug):
     if request.user.is_authenticated:
         try:
             orderproduct = OrderProduct.objects.filter(user=request.user, product_id=single_product.id).exists()
+
         except OrderProduct.DoesNotExist:
             orderproduct = None
     else:
@@ -54,7 +57,7 @@ def product_detail(request, category_slug, product_slug):
 
     # Get the reviews
     reviews = ReviewRating.objects.filter(product_id=single_product.id, status=True)
-
+    product = get_object_or_404(Product, category__slug=category_slug, slug=product_slug)
     # Get the product gallery
     product_gallery = ProductGallery.objects.filter(product_id=single_product.id)
 
@@ -64,6 +67,8 @@ def product_detail(request, category_slug, product_slug):
         'orderproduct': orderproduct,
         'reviews': reviews,
         'product_gallery': product_gallery,
+        'product': product,
+        # 'userprofile': userprofile,
     }
     return render(request, 'store/product_detail.html', context)
 
