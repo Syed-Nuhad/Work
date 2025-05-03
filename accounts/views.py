@@ -150,9 +150,9 @@ def activate(request, uidb64, token):
 def dashboard(request):
     orders = Order.objects.order_by('-created_at').filter(user_id=request.user.id, is_ordered=True)
     orders_count = orders.count()
-    userprofile = UserProfile.objects.get_or_create(user_id=request.user.id)
+    userprofile = UserProfile.objects.get(user=request.user)
     context = {
-        'orders_count': orders_count,
+        'user': request.user,
         'userprofile': userprofile,
     }
     return render(request, 'accounts/dashboard.html', context)
@@ -234,12 +234,12 @@ def edit_profile(request):
     userprofile = get_object_or_404(UserProfile, user=request.user)
     if request.method == 'POST':
         user_form = UserForm(request.POST, instance=request.user)
-        profile_form = UserProfileForm(request.POST, request.FILES, instance=userprofile)
+        profile_form = UserProfileForm(request.POST, request.FILES, instance=request.user.userprofile)
         if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
             profile_form.save()
             messages.success(request, 'Your profile has been updated.')
-            return redirect('edit_profile')
+            return redirect('dashboard')
     else:
         user_form = UserForm(instance=request.user)
         profile_form = UserProfileForm(instance=userprofile)
