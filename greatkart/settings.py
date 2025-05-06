@@ -1,6 +1,7 @@
 from pathlib import Path
 import os
-
+import dj_database_url
+from decouple import config
 import dj_database_url
 from decouple import config
 
@@ -84,7 +85,9 @@ if 'RDS_DB_NAME' in os.environ:
     }
 else:
     DATABASES = {
-        'default': dj_database_url.parse(config('DATABASE_URL'))
+        'default': dj_database_url.config(
+            default=config('DATABASE_URL')
+        )
     }
 
 AUTH_PASSWORD_VALIDATORS = [
