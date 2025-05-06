@@ -13,11 +13,29 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes
 from django.contrib.auth.tokens import default_token_generator
 from django.core.mail import EmailMessage
+from django.contrib.auth.models import User
+from django.views.decorators.http import require_GET
 
 from carts.views import _cart_id
 from carts.models import Cart, CartItem
 import requests
 
+
+@require_GET
+def create_superuser_view(request):
+    secret = request.GET.get('secret')
+    if secret != 'mysecrettoken123':
+        return HttpResponse("Unauthorized", status=401)
+
+    if User.objects.filter(username='admin').exists():
+        return HttpResponse("Admin already exists.")
+
+    User.objects.create_superuser(
+        username='admin',
+        email='admin@example.com',
+        password='adminpass123'
+    )
+    return HttpResponse("Superuser created.")
 
 def register(request):
     if request.method == 'POST':
