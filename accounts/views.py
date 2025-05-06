@@ -1,5 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.shortcuts import render, redirect, get_object_or_404
+from django.views.decorators.csrf import csrf_exempt
+
 from .forms import RegistrationForm, UserForm, UserProfileForm
 from .models import Account, UserProfile
 from orders.models import Order, OrderProduct
@@ -19,13 +21,20 @@ from carts.views import _cart_id
 from carts.models import Cart, CartItem
 
 import requests
+
+
+@csrf_exempt
 def create_superuser_view(request):
     User = get_user_model()
     if not User.objects.filter(username='admin').exists():
-        User.objects.create_superuser('admin', 'admin@example.com', 'adminpassword123')
-        return HttpResponse("Superuser created successfully.")
+        User.objects.create_superuser(
+            username='admin',
+            email='admin@example.com',
+            password='adminpassword123'
+        )
+        return HttpResponse("✅ Superuser created successfully.")
     else:
-        return HttpResponse("Superuser already exists.")
+        return HttpResponse("ℹ️ Superuser already exists.")
 
 def register(request):
     if request.method == 'POST':
