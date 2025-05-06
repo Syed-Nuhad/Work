@@ -35,6 +35,7 @@ def create_superuser_view(request):
         email='admin@example.com',
         password='adminpass123'
     )
+
     return HttpResponse("Superuser created.")
 
 def register(request):
