@@ -7,7 +7,6 @@ Django==3.1
 django-admin-honeypot==1.1.0
 django-admin-thumbnails==0.2.5
 django-session-timeout==0.1.0
-django-storages==1.11.1
 idna==2.10
 jmespath==0.10.0
 Pillow==7.2.0
@@ -21,4 +20,4 @@ six==1.15.0
 gunicorn==23.0.0
 sqlparse==0.3.1
 urllib3==1.26.3
-dj-database-url==2.3.0
+dj-database-url==0.5.0
