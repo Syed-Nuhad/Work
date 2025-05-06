@@ -1,6 +1,7 @@
 from pathlib import Path
 import os
 
+import dj_database_url
 from decouple import config
 
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
@@ -83,10 +84,7 @@ if 'RDS_DB_NAME' in os.environ:
     }
 else:
     DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3',
-        }
+        'default': dj_database_url.parse(config('DATABASE_URL'))
     }
 
 AUTH_PASSWORD_VALIDATORS = [
