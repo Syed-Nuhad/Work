@@ -6,6 +6,8 @@ from . import views
 from django.conf.urls.static import static
 from django.conf import settings
 
+from .views import run_all_migrations
+
 urlpatterns = [
     path('admin/', include('admin_honeypot.urls', namespace='admin_honeypot')),
     path('securelogin/', admin.site.urls),
