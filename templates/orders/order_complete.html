@@ -1,44 +1,166 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
-<section class="py-5 bg-light">
-  {% include 'includes/alerts.html' %}
-  <div class="container-fluid">
-    <div class="row">
-      <!-- Sidebar (responsive stack) -->
-      {% include 'includes/dashboard_sidebar.html' %}
-      <main class="col-lg-9 col-md-8 col-sm-12">
-        <div class="card">
-          <div class="card-header">
-            <!-- Section Title -->
-            <strong>Change Your Password</strong>
-          </div>
-          <div class="card-body">
-            <!-- Password Change Form -->
-            <form action="{% url 'change_password' %}" method="POST">
-              {% csrf_token %}
-              <!-- Current Password Field -->
-              <div class="mb-3">
-                <label for="current_password" class="form-label">Current Password</label>
-                <input type="password" name="current_password" id="current_password" class="form-control" required>
+
+<section class="section-content padding-y bg">
+  <div class="container">
+
+    <!-- ============================ COMPONENT 1 ================================= -->
+    <div class="card">
+      <div class="row g-0 flex-wrap">
+
+        <!-- Product Image Gallery -->
+        <aside class="col-lg-6 col-md-12 mb-3">
+          <article class="gallery-wrap">
+            <div class="img-big-wrap mainImage mb-3">
+              <center><img src="{{ single_product.images.url }}" class="img-fluid" alt="Product Main Image"></center>
+            </div>
+
+            <ul class="thumb d-flex flex-wrap justify-content-center">
+              <li class="m-1">
+                <a href="{{ single_product.images.url }}" target="mainImage"><img src="{{ single_product.images.url }}" class="img-thumbnail" alt="Product Image"></a>
+              </li>
+              {% for i in product_gallery %}
+              <li class="m-1">
+                <a href="{{i.image.url}}" target="mainImage"><img src="{{i.image.url}}" class="img-thumbnail" alt="Product Image"></a>
+              </li>
+              {% endfor %}
+            </ul>
+          </article>
+        </aside>
+
+        <!-- Product Info -->
+        <main class="col-lg-6 col-md-12 border-left px-3">
+          <form action="{% url 'add_cart' single_product.id %}" method="POST">
+            {% csrf_token %}
+            <article class="content-body">
+
+              <h2 class="title">{{ single_product.product_name }}</h2>
+              <div class="rating-star mb-2">
+                <span>
+                  <!-- Star rating HTML here -->
+                  <span>{{ single_product.countReview }} reviews</span>
+                </span>
               </div>
-              <!-- New Password Field -->
+
               <div class="mb-3">
-                <label for="new_password" class="form-label">Create New Password</label>
-                <input type="password" name="new_password" id="new_password" class="form-control" required>
+                <var class="price h4">$ {{ single_product.price }}</var>
               </div>
-              <!-- Confirm Password Field -->
+
+              <p>{{ single_product.description }}</p>
+
+              <hr>
+
               <div class="mb-3">
-                <label for="confirm_password" class="form-label">Confirm New Password</label>
-                <input type="password" name="confirm_password" id="confirm_password" class="form-control" required>
+                <h6>Choose Color</h6>
+                <select name="color" class="form-control" required>
+                  <option value="" disabled selected>Select</option>
+                  {% for i in single_product.variation_set.colors %}
+                  <option value="{{ i.variation_value | lower }}">{{ i.variation_value | capfirst }}</option>
+                  {% endfor %}
+                </select>
               </div>
-              <!-- Submit Button -->
-              <button type="submit" class="btn btn-primary w-100">Submit</button>
-            </form>
-          </div>
-        </div>
-      </main>
+
+              <div class="mb-3">
+                <h6>Select Size</h6>
+                <select name="size" class="form-control" required>
+                  <option value="" disabled selected>Select</option>
+                  {% for i in single_product.variation_set.sizes %}
+                  <option value="{{ i.variation_value | lower }}">{{ i.variation_value | capfirst }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+
+              <hr>
+
+              {% if single_product.stock <= 0 %}
+              <h5 class="text-danger">Out of Stock</h5>
+              {% else %}
+              <button type="submit" class="btn btn-primary w-100">Add to Cart <i class="fa fa-shopping-cart"></i></button>
+              {% endif %}
+            </article>
+          </form>
+        </main>
+      </div>
     </div>
+    <!-- ============================ COMPONENT 1 END  ================================= -->
+
+    <br>
+
+    <!-- Review Form -->
+    <div class="row">
+      <div class="col-lg-9 col-md-12">
+        <form action="{% url 'submit_review' single_product.id %}" method="POST">
+          {% csrf_token %}
+          <h5>Write Your Review</h5>
+          <label>How do you rate this product?</label>
+          <div class="rate mb-3">
+            <!-- rating stars -->
+          </div>
+
+          <div class="mb-3">
+            <label>Review Title:</label>
+            <input type="text" class="form-control" name="subject">
+          </div>
+
+          <div class="mb-3">
+            <label>Review:</label>
+            <textarea name="review" rows="4" class="form-control"></textarea>
+          </div>
+
+          {% if user.is_authenticated %}
+            {% if orderproduct %}
+              <input type="submit" value="Submit Review" class="btn btn-primary">
+            {% else %}
+              <p>You must purchase this product to post a review.</p>
+            {% endif %}
+          {% else %}
+            <p>You must be logged in to post a review. <a href="{% url 'login' %}">Login now</a></p>
+          {% endif %}
+
+          {% include 'includes/alerts.html' %}
+        </form>
+
+        <hr class="my-4">
+
+        <!-- Review List -->
+        <header class="section-heading mb-3">
+          <h3>Customer Reviews</h3>
+          <div class="rating-star mb-2">
+            <!-- average review stars -->
+            <span>{{ single_product.countReview }} reviews</span>
+          </div>
+        </header>
+
+        {% for review in reviews %}
+        <article class="box mb-4 p-3 border rounded shadow-sm">
+          <div class="d-flex align-items-center mb-2">
+            {% if review.user.userprofile.profile_picture %}
+            <img src="{{ review.user.userprofile.profile_picture.url }}" class="rounded-circle me-3" width="50" height="50" alt="Profile Picture">
+            {% else %}
+            <img src="{% static 'images/default.jpg' %}" class="rounded-circle me-3" width="50" height="50" alt="Default Picture">
+            {% endif %}
+
+            <div class="flex-grow-1">
+              <h6 class="mb-0">{{ review.user.full_name }}</h6>
+              <small class="text-muted">{{ review.updated_at }}</small>
+            </div>
+          </div>
+
+          <div class="rating-star mb-2">
+            <!-- individual rating stars -->
+          </div>
+
+          <h6>{{ review.subject }}</h6>
+          <p>{{ review.review }}</p>
+        </article>
+        {% endfor %}
+
+      </div>
+    </div>
+
   </div>
 </section>
+
 {% endblock %}

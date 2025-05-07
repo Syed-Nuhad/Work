@@ -1,174 +1,90 @@
-{% extends 'base.html' %}
 {% load static %}
 
-{% block content %}
-<section class="section-content padding-y bg">
-  <div class="container">
-    <h4 class="text-center mb-4">Review Your Order and Make Payment</h4>
-    <div class="row">
+<header class="section-header">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+    <div class="container-fluid">
 
-      <!-- Billing + Product Review (Left Column) -->
-      <div class="col-lg-8 col-md-12 mb-4">
-        <!-- Billing Address -->
-        <div class="card mb-3">
-          <h5 class="card-header">Billing Address</h5>
-          <div class="card-body">
-            <p class="mb-1">{{order.full_name}}</p>
-            <p class="mb-1">{{order.full_address}}</p>
-            <p class="mb-1">{{order.city}}, {{order.state}}</p>
-            <p class="mb-1">{{order.country}}</p>
-            <p class="mb-1">{{order.email}}</p>
-            <p class="mb-1">{{order.phone}}</p>
-            {% if order.order_note %}
-              <p><strong>Order Note:</strong> {{order.order_note}}</p>
-            {% endif %}
-          </div>
-        </div>
+      <!-- Logo -->
+      <a class="navbar-brand" href="{% url 'home' %}">
+        <img src="{% static './images/logo.png' %}" alt="Logo" style="height: 40px;">
+      </a>
 
-        <!-- Payment Method -->
-        <div class="card mb-3">
-          <h5 class="card-header">Payment Method</h5>
-          <div class="card-body">
-            <p>PayPal</p>
-          </div>
-        </div>
+      <!-- Toggler for mobile -->
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar"
+        aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
 
-        <!-- Product Review -->
-        <div class="card mb-3">
-          <h5 class="card-header">Review Products</h5>
-          <div class="card-body p-0">
-            <div class="table-responsive">
-              <table class="table table-borderless mb-0">
-                <thead class="text-muted">
-                  <tr class="small text-uppercase">
-                    <th>Product</th>
-                    <th>Quantity</th>
-                    <th>Price</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {% for cart_item in cart_items %}
-                  <tr>
-                    <td>
-                      <div class="d-flex align-items-center">
-                        <div class="me-2">
-                          <img src="{{ cart_item.product.images.url }}" class="img-fluid rounded" style="width: 60px;">
-                        </div>
-                        <div>
-                          <a href="{{ cart_item.product.get_url }}" class="text-dark fw-bold">{{ cart_item.product.product_name }}</a>
-                          <div class="small text-muted">
-                            {% if cart_item.variations.all %}
-                              {% for item in cart_item.variations.all %}
-                                {{ item.variation_category | capfirst }} : {{ item.variation_value | capfirst }}<br>
-                              {% endfor %}
-                            {% endif %}
-                          </div>
-                        </div>
-                      </div>
-                    </td>
-                    <td>{{cart_item.quantity}}</td>
-                    <td>
-                      <span class="d-block">${{ cart_item.sub_total }}</span>
-                      <small class="text-muted">${{ cart_item.product.price }} each</small>
-                    </td>
-                  </tr>
-                  {% endfor %}
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
+      <!-- Collapsible content -->
+      <div class="collapse navbar-collapse" id="mainNavbar">
+
+        <!-- Left section -->
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+          <!-- Categories dropdown -->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle btn btn-primary text-white px-3" href="#" id="categoryDropdown"
+              role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="fa fa-bars"></i> Categories
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="categoryDropdown">
+              <li><a class="dropdown-item" href="{% url 'store' %}">All Products</a></li>
+              {% for category in links %}
+                <li><a class="dropdown-item" href="{{ category.get_url }}">{{ category.category_name }}</a></li>
+              {% endfor %}
+            </ul>
+          </li>
+
+          <!-- Store link -->
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'store' %}">Store</a>
+          </li>
+        </ul>
+
+        <!-- Center: Search -->
+        <form class="d-flex w-100 w-lg-auto mb-3 mb-lg-0" method="GET" action="{% url 'search' %}">
+          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="keyword" required>
+          <button class="btn btn-outline-primary" type="submit">
+            <i class="fa fa-search"></i>
+          </button>
+        </form>
+
+        <!-- Right: User and Cart -->
+        <ul class="navbar-nav ms-lg-3 mb-2 mb-lg-0 d-flex align-items-lg-center">
+
+          {% if user.id is None %}
+            <li class="nav-item">
+              <span class="nav-link disabled">Welcome guest!</span>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'login' %}">Sign in</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'register' %}">Register</a>
+            </li>
+          {% else %}
+            <li class="nav-item">
+              <span class="nav-link disabled">Welcome {{ user.first_name }}!</span>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'dashboard' %}">Dashboard</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+            </li>
+          {% endif %}
+
+          <!-- Cart -->
+          <li class="nav-item">
+            <a class="nav-link position-relative" href="{% url 'cart' %}">
+              <i class="fa fa-shopping-cart"></i>
+              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                {{ cart_count }}
+              </span>
+            </a>
+          </li>
+        </ul>
       </div>
-
-      <!-- Order Summary + PayPal (Right Column) -->
-      <div class="col-lg-4 col-md-12">
-        <div class="card">
-          <div class="card-body">
-            <dl class="row mb-2">
-              <dt class="col-6">Total price:</dt>
-              <dd class="col-6 text-end">${{total}}</dd>
-
-              <dt class="col-6">Tax:</dt>
-              <dd class="col-6 text-end">${{tax}}</dd>
-
-              <dt class="col-6 fw-bold">Grand Total:</dt>
-              <dd class="col-6 text-end fw-bold text-dark">${{grand_total}}</dd>
-            </dl>
-            <hr>
-            <div class="text-center mb-3">
-              <img src="{% static './images/misc/payments.png' %}" alt="Payments" height="26">
-            </div>
-
-            <div id="paypal-button-container">
-              <!-- PayPal Button -->
-            </div>
-          </div>
-        </div>
-      </div>
-
     </div>
-  </div>
-</section>
-
-<!-- PayPal Script -->
-<script>
-function getCookie(name) {
-  let cookieValue = null;
-  if (document.cookie && document.cookie !== '') {
-    const cookies = document.cookie.split(';');
-    for (let i = 0; i < cookies.length; i++) {
-      const cookie = cookies[i].trim();
-      if (cookie.substring(0, name.length + 1) === (name + '=')) {
-        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-        break;
-      }
-    }
-  }
-  return cookieValue;
-}
-
-var amount = "{{ grand_total }}";
-var url = "{% url 'payments' %}";
-var csrftoken = getCookie('csrftoken');
-var orderID = "{{order.order_number}}";
-var payment_method = 'PayPal';
-var redirect_url = "{% url 'order_complete' %}";
-
-paypal.Buttons({
-  style: {
-    color: 'blue',
-    shape: 'rect',
-    label: 'pay',
-    height: 40
-  },
-  createOrder: function(data, actions) {
-    return actions.order.create({
-      purchase_units: [{
-        amount: { value: amount }
-      }]
-    });
-  },
-  onApprove: function(data, actions) {
-    return actions.order.capture().then(function(details) {
-      fetch(url, {
-        method: "POST",
-        headers: {
-          "Content-type": "application/json",
-          "X-CSRFToken": csrftoken,
-        },
-        body: JSON.stringify({
-          orderID: orderID,
-          transID: details.id,
-          payment_method: payment_method,
-          status: details.status,
-        }),
-      })
-      .then((response) => response.json())
-      .then((data) => {
-        window.location.href = redirect_url + '?order_number=' + data.order_number + '&payment_id=' + data.transID;
-      });
-    });
-  }
-}).render('#paypal-button-container');
-</script>
-{% endblock %}
+  </nav>
+</header>
