@@ -17,8 +17,8 @@ class Product(models.Model):
     category        = models.ForeignKey(Category, on_delete=models.CASCADE)
     created_date    = models.DateTimeField(auto_now_add=True)
     modified_date   = models.DateTimeField(auto_now=True)
-    selling_price = models.DecimalField(decimal_places=2)
-    cost_price = models.DecimalField(decimal_places=2)
+    cost_price = models.DecimalField(max_digits=15, decimal_places=2)
+    selling_price = models.DecimalField(max_digits=15, decimal_places=2)
     sold = models.PositiveIntegerField(default=0)
 
     @property

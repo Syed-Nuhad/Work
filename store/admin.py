@@ -8,7 +8,7 @@ class ProductGalleryInline(admin.TabularInline):
     extra = 1
 
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ('product_name', 'selling_price', 'cost_price', 'price', 'sold', 'stock', 'single_product_profit_display','category','single_product_profit_display', 'total_profit_display' 'modified_date', 'is_available')
+    list_display = ('product_name', 'selling_price', 'cost_price', 'price', 'sold', 'stock', 'single_product_profit_display','category','single_product_profit_display', 'total_profit_display', 'modified_date', 'is_available')
     prepopulated_fields = {'slug': ('product_name',)}
     inlines = [ProductGalleryInline]
     readonly_fields = ['single_product_profit_display', 'total_profit_display']
