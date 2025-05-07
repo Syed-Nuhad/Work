@@ -81,13 +81,19 @@ if 'RDS_DB_NAME' in os.environ:
             'PASSWORD': os.environ['RDS_PASSWORD'],
             'HOST': os.environ['RDS_HOSTNAME'],
             'PORT': os.environ['RDS_PORT'],
+            'OPTIONS': {
+                'sslmode': 'require',
+            },
         }
     }
 else:
     DATABASES = {
         'default': dj_database_url.config(
             default=config('DATABASE_URL')
-        )
+        ),
+        'OPTIONS': {
+            'sslmode': 'require',
+        },
     }
 
 AUTH_PASSWORD_VALIDATORS = [
