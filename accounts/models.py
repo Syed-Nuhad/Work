@@ -6,7 +6,7 @@ from django.conf import settings
 # Create your models here.
 
 class MyAccountManager(BaseUserManager):
-    def create_user(self, first_name, last_name, username, email, password=None):
+    def create_user(self, first_name, last_name, username, email, password=None, **extra_fields):
         if not email:
             raise ValueError('User must have an email address')
 
@@ -18,6 +18,7 @@ class MyAccountManager(BaseUserManager):
             username = username,
             first_name = first_name,
             last_name = last_name,
+            **extra_fields
         )
 
         user.set_password(password)
