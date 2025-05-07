@@ -12,12 +12,27 @@ class Product(models.Model):
     description     = models.TextField(max_length=500, blank=True)
     price           = models.IntegerField()
     images          = models.ImageField(upload_to='photos/products')
-    stock           = models.IntegerField()
+    stock = models.PositiveIntegerField()
     is_available    = models.BooleanField(default=True)
     category        = models.ForeignKey(Category, on_delete=models.CASCADE)
     created_date    = models.DateTimeField(auto_now_add=True)
     modified_date   = models.DateTimeField(auto_now=True)
+    name = models.CharField(max_length=100)
+    selling_price = models.DecimalField(decimal_places=2)
+    cost_price = models.DecimalField(decimal_places=2)
+    sold = models.PositiveIntegerField(default=0)
 
+    @property
+    def single_product_profit(self):
+        if self.sold > 0:
+            return self.selling_price - self.cost_price
+        return None
+
+    @property
+    def total_profit(self):
+        if self.sold > 0:
+            return self.sold * (self.selling_price - self.cost_price)
+        return None
     def get_url(self):
         return reverse('product_detail', args=[self.category.slug, self.slug])
 
