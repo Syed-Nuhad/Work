@@ -18,9 +18,9 @@
             <!-- Profile Picture Display -->
             <div class="text-end mb-3">
               {% if userprofile.profile_picture and userprofile.profile_picture.name != 'profile_pictures/default.jpg' %}
-                <img src="{{ userprofile.profile_picture.url }}" alt="User Profile Picture" class="rounded-circle" width="50" height="50">
+                    <img src="{{ userprofile.profile_picture.url }}" alt="User Profile Picture" width="50" height="50" style="border-radius:50%;">
               {% else %}
-                <img src="{% static 'images/default.jpg' %}" alt="Default Profile Picture" class="rounded-circle" width="50" height="50">
+                    <img src="{% static 'images/default.jpg' %}" alt="Default Profile Picture" width="50" height="50" style="border-radius:50%;">
               {% endif %}
             </div>
             <!-- Edit Profile Form -->

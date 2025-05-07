@@ -32,10 +32,10 @@
                 <div class="card text-center h-100">
                   <div class="card-body">
                     {% if userprofile.profile_picture and userprofile.profile_picture.name != 'profile_pictures/default.jpg' %}
-                      <img src="{{ userprofile.profile_picture.url }}" class="rounded-circle mb-2" width="50" height="50" alt="User Picture">
-                    {% else %}
-                      <img src="{% static 'images/default.jpg' %}" class="rounded-circle mb-2" width="50" height="50" alt="Default Picture">
-                    {% endif %}
+                            <img src="{{ userprofile.profile_picture.url }}" alt="User Profile Picture" width="50" height="50" style="border-radius:50%;">
+                        {% else %}
+                            <img src="{% static 'images/default.jpg' %}" alt="Default Profile Picture" width="50" height="50" style="border-radius:50%;">
+                        {% endif %}
                     <p class="mb-0">{{ user.email }}</p>
                     <p>{{ user.phone_number }}</p>
                   </div>
