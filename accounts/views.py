@@ -1,3 +1,7 @@
+import os
+
+from decouple import config
+from django.contrib.auth import get_user_model
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import RegistrationForm, UserForm, UserProfileForm
 from .models import Account, UserProfile
@@ -13,7 +17,6 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes
 from django.contrib.auth.tokens import default_token_generator
 from django.core.mail import EmailMessage
-from django.contrib.auth.models import User
 from django.views.decorators.http import require_GET
 
 from carts.views import _cart_id
@@ -23,20 +26,26 @@ import requests
 
 @require_GET
 def create_superuser_view(request):
-    secret = request.GET.get('secret')
-    if secret != 'mysecrettoken123':
+    # Security check
+    secret = request.GET.get("secret")
+    if secret != config("CREATE_SUPERUSER_SECRET"):
         return HttpResponse("Unauthorized", status=401)
 
-    if User.objects.filter(username='admin').exists():
-        return HttpResponse("Admin already exists.")
+    User = get_user_model()
 
-    User.objects.create_superuser(
-        username='admin',
-        email='admin@example.com',
-        password='adminpass123'
-    )
-
-    return HttpResponse("Superuser created.")
+    try:
+        # Check if superuser already exists
+        if not User.objects.filter(username="admin").exists():
+            User.objects.create_superuser(
+                username=config("DJANGO_SUPERUSER_USERNAME"),
+                email=config("DJANGO_SUPERUSER_EMAIL"),
+                password=config("DJANGO_SUPERUSER_PASSWORD")
+            )
+            return HttpResponse("Superuser created successfully.")
+        else:
+            return HttpResponse("Superuser already exists.")
+    except Exception as e:
+        return HttpResponse(f"Error: {str(e)}", status=500)
 
 def register(request):
     if request.method == 'POST':
