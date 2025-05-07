@@ -31,8 +31,8 @@ class MyAccountManager(BaseUserManager):
         extra_fields.setdefault('is_admin', True)
         extra_fields.setdefault('is_active', True)
         extra_fields.setdefault('is_staff', True)
-        extra_fields.setdefault('is_superadmin', True)
-        extra_fields.setdefault('is_superuser', True)
+        # extra_fields.setdefault('is_superadmin', True)
+        # extra_fields.setdefault('is_superuser', True)
 
         return self.create_user(
             email=email,
