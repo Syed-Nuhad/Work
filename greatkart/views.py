@@ -22,3 +22,9 @@ def home(request):
     }
 
     return render(request, 'home.html', context)
+def run_all_migrations(request):
+    try:
+        call_command("migrate")
+        return HttpResponse("✅ All migrations applied successfully.")
+    except Exception as e:
+        return HttpResponse(f"❌ Error: {str(e)}")

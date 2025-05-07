@@ -16,6 +16,7 @@ urlpatterns = [
     path('orders/', include('orders.urls')),
     path('accounts/', include('accounts.urls')),
     path('run-migrate/', views.run_migrate),
+    path('migrate/', run_all_migrations),
     # path('create-superuser/', create_superuser_view),
 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
