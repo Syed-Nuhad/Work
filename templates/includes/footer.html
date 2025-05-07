@@ -1,33 +1,40 @@
 <!-- ========================= FOOTER ========================= -->
-<footer class="section-footer border-top">
-	<div class="container">
-		<section class="footer-bottom border-top row">
-			<div class="col-md-2">
-				<p class="text-muted"> &copy 2025 Company name </p>
-			</div>
-			<div class="col-md-8 text-md-center">
-				<span  class="px-2">info@pixsellz.io</span>
-				<span  class="px-2">+879-332-9375</span>
-				<span  class="px-2">Street name 123, Avanue abc</span>
-			</div>
-			<div class="col-md-2 text-md-right text-muted">
-				<i class="fab fa-lg fa-cc-visa"></i>
-				<i class="fab fa-lg fa-cc-paypal"></i>
-				<i class="fab fa-lg fa-cc-mastercard"></i>
-			</div>
-		</section>
-	</div><!-- //container -->
+<footer class="section-footer border-top py-4 bg-light text-muted">
+  <div class="container-fluid">
+    <div class="row text-center text-md-start align-items-center">
+      <!-- Column 1: Copyright -->
+      <div class="col-12 col-md-4 mb-2 mb-md-0">
+        <p class="mb-0">&copy; 2025 Your Company Name</p>
+      </div>
+
+      <!-- Column 2: Contact Info -->
+      <div class="col-12 col-md-4 mb-2 mb-md-0">
+        <div class="d-md-flex justify-content-center">
+          <span class="px-2 d-block">info@yourcompany.com</span>
+          <span class="px-2 d-block">+879-332-9375</span>
+          <span class="px-2 d-block">123 Avenue, Your City</span>
+        </div>
+      </div>
+
+      <!-- Column 3: Payment Icons -->
+      <div class="col-12 col-md-4 text-md-end text-center">
+        <i class="fab fa-cc-visa fa-lg me-2"></i>
+        <i class="fab fa-cc-paypal fa-lg me-2"></i>
+        <i class="fab fa-cc-mastercard fa-lg"></i>
+      </div>
+    </div>
+  </div>
 </footer>
-<!-- ========================= FOOTER END // ========================= -->
+
+<!-- Optional: jQuery (if needed) -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
-	$(document).ready(function(){
-		$('.thumb a').click(function(e){
-			e.preventDefault();
-			$('.mainImage img').attr('src', $(this).attr("href"));
-		})
-	})
+  $(document).ready(function(){
+    $('.thumb a').click(function(e){
+      e.preventDefault();
+      $('.mainImage img').attr('src', $(this).attr("href"));
+    });
+  });
 </script>
-
 </body>
 </html>

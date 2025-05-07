@@ -1,12 +1,30 @@
-<aside class="col-md-3">
-  <!--   SIDEBAR   -->
-  <ul class="list-group">
-    <a class="list-group-item {% if '/accounts/' == request.path %}active{% endif %}" href="{% url 'dashboard' %}"> Dashboard </a>
-    <a class="list-group-item {% if '/my_orders/' in request.path %}active{% endif %}" href="{% url 'my_orders' %}"> My Orders </a>
-    <a class="list-group-item {% if '/edit_profile/' in request.path %}active{% endif %}" href="{% url 'edit_profile' %}"> Edit Profile </a>
-    <a class="list-group-item {% if '/change_password/' in request.path %}active{% endif %}" href="{% url 'change_password' %}"> Change Password </a>
-  </ul>
-  <br>
-  <a class="btn btn-light btn-block" href="{% url 'logout' %}"> <i class="fa fa-power-off"></i> <span class="text">Log out</span> </a>
-  <!--   SIDEBAR .//END   -->
+<!-- Sidebar as a responsive card for smaller devices -->
+<aside class="col-12 col-md-3 mb-4">
+  <div class="card d-md-block d-none"> <!-- Hidden on small devices, visible on md+ -->
+    <ul class="list-group">
+      <a href="{% url 'dashboard' %}" class="list-group-item {% if '/accounts/' == request.path %}active{% endif %}">Dashboard</a>
+      <a href="{% url 'my_orders' %}" class="list-group-item {% if '/my_orders/' in request.path %}active{% endif %}">My Orders</a>
+      <a href="{% url 'edit_profile' %}" class="list-group-item {% if '/edit_profile/' in request.path %}active{% endif %}">Edit Profile</a>
+      <a href="{% url 'change_password' %}" class="list-group-item {% if '/change_password/' in request.path %}active{% endif %}">Change Password</a>
+    </ul>
+    <div class="mt-3">
+      <a href="{% url 'logout' %}" class="btn btn-outline-danger w-100">
+        <i class="fa fa-power-off me-2"></i> Log out
+      </a>
+    </div>
+  </div>
+
+  <!-- Dropdown nav for small screens -->
+  <div class="d-md-none mb-3">
+    <select class="form-select" onchange="location = this.value;">
+      <option disabled selected>Navigate</option>
+      <option value="{% url 'dashboard' %}">Dashboard</option>
+      <option value="{% url 'my_orders' %}">My Orders</option>
+      <option value="{% url 'edit_profile' %}">Edit Profile</option>
+      <option value="{% url 'change_password' %}">Change Password</option>
+    </select>
+    <a href="{% url 'logout' %}" class="btn btn-outline-danger w-100 mt-3">
+      <i class="fa fa-power-off me-2"></i> Log out
+    </a>
+  </div>
 </aside>
