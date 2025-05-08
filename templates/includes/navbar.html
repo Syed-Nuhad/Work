@@ -5,7 +5,7 @@
     <div class="container-fluid">
 
       <!-- Logo -->
-      <a class="navbar-brand py-2" href="{% url 'home' %}">
+      <a class="navbar-brand px-3" href="{% url 'home' %}">
         <img src="{% static './images/logo.png' %}" alt="Logo" style="height: 40px;">
       </a>
 
@@ -16,13 +16,13 @@
       </button>
 
       <!-- Collapsible content -->
-      <div class="collapse navbar-collapse" id="mainNavbar">
+      <div class="collapse navbar-collapse px-3" id="mainNavbar">
 
         <!-- Left section -->
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0 px-3">
 
           <!-- Categories dropdown -->
-          <li class="nav-item dropdown py-2">
+          <li class="nav-item dropdown">
               <button class="btn btn-primary dropdown-toggle px-3 text-white" id="categoryDropdown"
                 data-bs-toggle="dropdown" aria-expanded="false">
                 <i class="fa fa-bars"></i> Categories
@@ -35,7 +35,7 @@
               </ul>
           </li>
           <!-- Store link -->
-          <li class="nav-item">
+          <li class="nav-item px-3">
             <a class="nav-link" href="{% url 'store' %}">Store</a>
           </li>
         </ul>
@@ -49,7 +49,7 @@
         </form>
 
         <!-- Right: User and Cart -->
-        <ul class="navbar-nav ms-lg-3 mb-2 mb-lg-0 d-flex align-items-lg-center">
+        <ul class="navbar-nav ms-lg-3 mb-2 mb-lg-0 d-flex align-items-lg-center px-3">
 
           {% if user.id is None %}
             <li class="nav-item">
