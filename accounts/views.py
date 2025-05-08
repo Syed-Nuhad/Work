@@ -64,7 +64,7 @@ def register(request):
             # Create a user profile
             profile = UserProfile()
             profile.user_id = user.id
-            profile.profile_picture = 'default/default-user.png'
+
             profile.save()
 
             # USER ACTIVATION
@@ -178,7 +178,7 @@ def activate(request, uidb64, token):
 def dashboard(request):
     orders = Order.objects.order_by('-created_at').filter(user_id=request.user.id, is_ordered=True)
     orders_count = orders.count()
-    userprofile = UserProfile.objects.get_or_create(user=request.user)
+    userprofile = UserProfile.objects.get(user=request.user)
     context = {
         'user': request.user,
         'userprofile': userprofile,

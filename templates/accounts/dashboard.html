@@ -31,11 +31,13 @@
               <div class="col-xl-6 col-lg-6 col-md-12">
                 <div class="card text-center h-100">
                   <div class="card-body">
-                  {% if userprofile.profile_picture and userprofile.profile_picture.name != 'profile_pictures/default.jpg' %}
-                    <img src="{{ userprofile.profile_picture.url }}" alt="User Profile Picture" width="50" height="50" style="border-radius:50%;">
-                  {% else %}
-                    <img src="{% static 'images/default.jpg' %}" alt="Default Profile Picture" width="50" height="50" style="border-radius:50%;">
-                  {% endif %}
+                        {% if userprofile.profile_picture %}
+                          <img src="{{ userprofile.profile_picture.url }}" alt="User Profile Picture" width="50" height="50" style="border-radius:50%;">
+                        {% else %}
+                          <img src="{% static 'images/default.jpg' %}" alt="Default Profile Picture" width="50" height="50" style="border-radius:50%;">
+                        {% endif %}
+
+
                     <p class="mb-0">{{ user.email }}</p>
                     <p>{{ user.phone_number }}</p>
                   </div>
