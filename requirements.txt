@@ -5,7 +5,7 @@ certifi==2020.12.5
 chardet==4.0.0
 dj-database-url==0.5.0
 django==4.2.14
-django-admin-honeypot==1.1.0
+git+https://github.com/YOUR_USERNAME/django-admin-honeypot.git@main
 django-admin-thumbnails==0.2.5
 django-session-timeout==0.1.0
 django-storages==1.11.1
