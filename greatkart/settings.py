@@ -88,12 +88,7 @@ if 'RDS_DB_NAME' in os.environ:
     }
 else:
     DATABASES = {
-        'default': dj_database_url.config(
-            default=config('DATABASE_URL')
-        ),
-        'OPTIONS': {
-            'sslmode': 'require',
-        },
+        'default': dj_database_url.config(conn_max_age=600, ssl_require=True)
     }
 
 AUTH_PASSWORD_VALIDATORS = [
