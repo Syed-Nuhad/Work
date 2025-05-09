@@ -22,5 +22,5 @@ s3transfer==0.3.6
 setuptools>=58.0.0
 six==1.15.0
 sqlparse==0.4.4
-urllib3==1.26.3
+urllib3<2.0
 Pillow>=9.5.0
