@@ -5,6 +5,7 @@ from decouple import config
 import dj_database_url
 from decouple import config
 
+
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 
 SECRET_KEY = config("SECRET_KEY")  # Just a placeholder. Keep it secret in production.
