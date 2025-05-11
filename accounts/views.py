@@ -266,7 +266,6 @@ def edit_profile(request):
         userprofile = UserProfile.objects.get(user=request.user)
     except UserProfile.DoesNotExist:
         userprofile = None
-
     if request.method == 'POST':
         user_form = UserForm(request.POST, instance=request.user)
         profile_form = UserProfileForm(request.POST, request.FILES, instance=userprofile)
