@@ -37,9 +37,9 @@ def create_superuser_view(request):
         # Check if superuser already exists
         if not User.objects.filter(username="admin").exists():
             User.objects.create_superuser(
-                username=config("DJANGO_SUPERUSER_USERNAME"),
-                email=config("DJANGO_SUPERUSER_EMAIL"),
-                password=config("DJANGO_SUPERUSER_PASSWORD")
+                username=config("DJANGO_SUPERUSER_USERNAME", default="admin"),
+                email=config("DJANGO_SUPERUSER_EMAIL", default="admin@gmail.com"),
+                password=config("DJANGO_SUPERUSER_PASSWORD", default="adm!n123"),
             )
             return HttpResponse("Superuser created successfully.")
         else:
