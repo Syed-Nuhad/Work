@@ -89,10 +89,20 @@ if 'RDS_DB_NAME' in os.environ:
     }
 else:
     DATABASES = {
-        # 'default': dj_database_url.config(conn_max_age=600, ssl_require=True)
-        'default': dj_database_url.config(
-            default='postgresql://postgres.zqhzuuuwaszflqjkfwsj:yolomyguy!yea@aws-0-ap-south-1.pooler.supabase.com:6543/postgres?sslmode=require')
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': 'koyebdb',
+            'USER': 'koyeb-adm',
+            'PASSWORD': 'npg_la9ceOZxR6rw',
+            'HOST': 'ep-shrill-flower-a2948xct.eu-central-1.pg.koyeb.app',
+            'OPTIONS': {'sslmode': 'require'},
+        }
     }
+    # DATABASES = {
+    #     # 'default': dj_database_url.config(conn_max_age=600, ssl_require=True)
+    #     'default': dj_database_url.config(
+    #         default='postgresql://postgres.zqhzuuuwaszflqjkfwsj:yolomyguy!yea@aws-0-ap-south-1.pooler.supabase.com:6543/postgres?sslmode=require')
+    # }
 
 AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
