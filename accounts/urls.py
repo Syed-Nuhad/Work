@@ -3,8 +3,8 @@ from django.http import HttpResponse
 from django.urls import path, include
 from . import views
 def run_migrations(request):
-    call_command('migrate')
-    return HttpResponse("✅ Migrations complete.")
+    call_command('migrate', interactive=False)
+    return HttpResponse("✅ Migrations applied successfully.")
 urlpatterns = [
     path('register/', views.register, name='register'),
     path('login/', views.login, name='login'),
