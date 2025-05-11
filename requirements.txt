@@ -4,7 +4,7 @@ botocore==1.20.36
 certifi==2020.12.5
 chardet==4.0.0
 dj-database-url==0.5.0
-Django~=5.2
+Django==3.2.25
 django-admin-honeypot==1.1.0
 django-admin-thumbnails==0.2.5
 django-session-timeout==0.1.0
@@ -14,14 +14,13 @@ idna==2.10
 jmespath==0.10.0
 psycopg2-binary==2.9.9
 python-dateutil==2.8.1
-python-decouple~=3.8
+python-decouple==3.4
 pytz==2020.1
 reportlab==4.4.0
-requests~=2.32.3
+requests==2.25.1
 s3transfer==0.3.6
 setuptools>=58.0.0
 six==1.15.0
 sqlparse==0.4.4
 urllib3<2.0
 Pillow>=9.5.0
-dj-database-url
