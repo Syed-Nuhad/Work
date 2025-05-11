@@ -263,20 +263,36 @@ def my_orders(request):
 @login_required(login_url='login')
 def edit_profile(request):
     try:
+        # Try to fetch the current user's profile
         userprofile = UserProfile.objects.get(user=request.user)
     except UserProfile.DoesNotExist:
+        # If no profile exists, set it to None
         userprofile = None
+
+    # Handle form submission
     if request.method == 'POST':
         user_form = UserForm(request.POST, instance=request.user)
-        profile_form = UserProfileForm(request.POST, request.FILES, instance=userprofile)
+
+        # If user profile exists, use it in the form, otherwise, don't
+        if userprofile:
+            profile_form = UserProfileForm(request.POST, request.FILES, instance=userprofile)
+        else:
+            profile_form = UserProfileForm(request.POST, request.FILES)
+
+        # Check if both forms are valid and save
         if user_form.is_valid() and profile_form.is_valid():
-            user_form.save()
-            profile_form.save()
+            user_form.save()  # Save the user information
+            profile_form.save()  # Save the user profile
             messages.success(request, 'Your profile has been updated.')
             return redirect('dashboard')
     else:
         user_form = UserForm(instance=request.user)
-        profile_form = UserProfileForm(instance=userprofile)
+
+        # If user profile exists, edit it, otherwise initialize a new form
+        if userprofile:
+            profile_form = UserProfileForm(instance=userprofile)
+        else:
+            profile_form = UserProfileForm()
 
     context = {
         'user_form': user_form,
