@@ -301,25 +301,6 @@ def edit_profile(request):
     }
 
     return render(request, 'accounts/edit_profile.html', context)
-    # userprofile, created = UserProfile.objects.get_or_create(user=request.user)
-    # if request.method == 'POST':
-    #     user_form = UserForm(request.POST, instance=request.user)
-    #     profile_form = UserProfileForm(request.POST, request.FILES, instance=request.user.userprofile)
-    #     if user_form.is_valid() and profile_form.is_valid():
-    #         user_form.save()
-    #         profile_form.save()
-    #         messages.success(request, 'Your profile has been updated.')
-    #         return redirect('dashboard')
-    # else:
-    #     user_form = UserForm(instance=request.user)
-    #     profile_form = UserProfileForm(instance=userprofile)
-    # context = {
-    #     'user_form': user_form,
-    #     'profile_form': profile_form,
-    #     'userprofile': userprofile,
-    # }
-    #
-    # return render(request, 'accounts/edit_profile.html', context)
 
 
 @login_required(login_url='login')
