@@ -91,7 +91,7 @@ else:
     DATABASES = {
         # 'default': dj_database_url.config(conn_max_age=600, ssl_require=True)
         'default': dj_database_url.config(
-            default='postgresql://postgres:BRODONDHACK@db.fjuvuipnduemweiclrwr.supabase.co:5432/postgres?sslmode=require')
+            default='postgresql://postgres.zqhzuuuwaszflqjkfwsj:yolomyguy!yea@aws-0-ap-south-1.pooler.supabase.com:6543/postgres?sslmode=require')
     }
 
 AUTH_PASSWORD_VALIDATORS = [
