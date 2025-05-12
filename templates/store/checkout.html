@@ -8,44 +8,48 @@
     <div class="col-lg-6 col-md-6 col-sm-12 mb-4">
       <h3>Billing Information</h3>
       <form action="{% url 'place_order' %}" method="POST">
-        {% csrf_token %}
-        <div class="form-floating mb-3">
-          <input type="text" class="form-control" name="first_name" placeholder="First Name" required>
-          <label>First Name</label>
-        </div>
-        <div class="form-floating mb-3">
-          <input type="text" class="form-control" name="last_name" placeholder="Last Name" required>
-          <label>Last Name</label>
-        </div>
-        <div class="form-floating mb-3">
-          <input type="email" class="form-control" name="email" placeholder="Email" required>
-          <label>Email</label>
-        </div>
-        <div class="form-floating mb-3">
-          <input type="tel" class="form-control" name="phone" placeholder="Phone" required>
-          <label>Phone</label>
-        </div>
-        <div class="form-floating mb-3">
-          <textarea class="form-control" name="address" placeholder="Address" required></textarea>
-          <label>Address</label>
-        </div>
-        <div class="form-floating mb-3">
-          <input type="text" class="form-control" name="city" placeholder="City" required>
-          <label>City</label>
-        </div>
-        <div class="form-floating mb-3">
-          <input type="text" class="form-control" name="state" placeholder="State" required>
-          <label>State</label>
-        </div>
-        <div class="form-floating mb-3">
-          <input type="text" class="form-control" name="zipcode" placeholder="Zip Code" required>
-          <label>Zip Code</label>
-        </div>
-        <div class="form-floating mb-3">
-          <input type="text" class="form-control" name="country" placeholder="Country" required>
-          <label>Country</label>
-        </div>
-        <button type="submit" class="btn btn-success w-100 mt-3">Place Order</button>
+          {% csrf_token %}
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control" name="first_name" placeholder="First Name" required>
+            <label>First Name</label>
+          </div>
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control" name="last_name" placeholder="Last Name" required>
+            <label>Last Name</label>
+          </div>
+          <div class="form-floating mb-3">
+            <input type="email" class="form-control" name="email" placeholder="Email" required>
+            <label>Email</label>
+          </div>
+          <div class="form-floating mb-3">
+            <input type="tel" class="form-control" name="phone" placeholder="Phone" required>
+            <label>Phone</label>
+          </div>
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control" name="address_line_1" placeholder="Address Line 1" required>
+            <label>Address Line 1</label>
+          </div>
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control" name="address_line_2" placeholder="Address Line 2">
+            <label>Address Line 2</label>
+          </div>
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control" name="city" placeholder="City" required>
+            <label>City</label>
+          </div>
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control" name="state" placeholder="State" required>
+            <label>State</label>
+          </div>
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control" name="country" placeholder="Country" required>
+            <label>Country</label>
+          </div>
+          <div class="form-floating mb-3">
+            <textarea class="form-control" name="order_note" placeholder="Order Note"></textarea>
+            <label>Order Note</label>
+          </div>
+          <button type="submit" class="btn btn-success w-100 mt-3">Place Order</button>
       </form>
     </div>
 
