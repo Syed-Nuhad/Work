@@ -10,9 +10,9 @@ BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 
 SECRET_KEY = config("SECRET_KEY")  # Just a placeholder. Keep it secret in production.
 
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['greatkart-course-env.eba-pepcery4.us-west-2.elasticbeanstalk.com', '*']
+ALLOWED_HOSTS = ['.vercel.app']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
