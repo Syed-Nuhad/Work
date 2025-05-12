@@ -129,8 +129,7 @@ def place_order(request, total=0, quantity=0):
             }
             return render(request, 'orders/payments.html', context)
         else:
-            # ❗ Return back to the form with errors
-            return render(request, 'orders/place_order.html', {'form': form, 'cart_items': cart_items})
+            return render(request, 'orders/checkout.html', {'form': form, 'cart_items': cart_items})
     else:
         return redirect('checkout')
 
