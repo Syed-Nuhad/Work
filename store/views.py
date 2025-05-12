@@ -68,7 +68,7 @@ def product_detail(request, category_slug, product_slug):
         'reviews': reviews,
         'product_gallery': product_gallery,
         'product': product,
-        # 'userprofile': userprofile,
+        'user': request.user,
     }
     return render(request, 'store/product_detail.html', context)
 

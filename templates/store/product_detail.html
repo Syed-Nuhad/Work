@@ -136,10 +136,10 @@
         {% for review in reviews %}
         <article class="box mb-4 p-3 border rounded shadow-sm">
           <div class="d-flex align-items-center mb-2">
-            {% if review.user.userprofile.profile_picture %}
-            <img src="{{ review.user.userprofile.profile_picture.url }}" class="rounded-circle me-3" width="50" height="50" alt="Profile Picture">
+            {% if user.user_profile.profile_picture.url %}
+              <img src="{{ request.user.userprofile.profile_picture.url }}" alt="User Profile Picture" width="50" height="50" style="border-radius:50%;">
             {% else %}
-            <img src="{% static 'images/default.jpg' %}" class="rounded-circle me-3" width="50" height="50" alt="Default Picture">
+              <img src="{% static 'images/default.jpg' %}" alt="Default Profile Picture" width="50" height="50" style="border-radius:50%;">
             {% endif %}
 
             <div class="flex-grow-1">

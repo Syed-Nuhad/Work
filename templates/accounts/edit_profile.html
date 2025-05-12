@@ -17,13 +17,11 @@
           <div class="card-body">
             <!-- Profile Picture Display -->
             <div class="text-end mb-3">
-                {% if userprofile.profile_picture %}
-                  <img src="{{ userprofile.profile_picture.url }}" alt="User Profile Picture" width="50" height="50" style="border-radius:50%;">
+                {% if user.user_profile.profile_picture.url %}
+                  <img src="{{ request.user.userprofile.profile_picture.url }}" alt="User Profile Picture" width="50" height="50" style="border-radius:50%;">
                 {% else %}
                   <img src="{% static 'images/default.jpg' %}" alt="Default Profile Picture" width="50" height="50" style="border-radius:50%;">
                 {% endif %}
-
-
             </div>
             <!-- Edit Profile Form -->
             <form action="{% url 'edit_profile' %}" method="POST" enctype="multipart/form-data">
