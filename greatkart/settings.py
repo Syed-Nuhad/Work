@@ -12,7 +12,7 @@ SECRET_KEY = config("SECRET_KEY")  # Just a placeholder. Keep it secret in produ
 
 DEBUG = False
 
-ALLOWED_HOSTS = ['.vercel.app']
+ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
