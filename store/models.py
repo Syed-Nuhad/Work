@@ -76,7 +76,6 @@ class Variation(models.Model):
     def __str__(self):
         return self.variation_value
 
-
 class ReviewRating(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     user = models.ForeignKey(Account, on_delete=models.CASCADE)
